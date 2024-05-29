@@ -1,8 +1,9 @@
 import Final.Finals;
-
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Objects;
 
 public class GameScene extends JPanel {
@@ -11,11 +12,11 @@ public class GameScene extends JPanel {
     private static int player2Score = 0;
     private JLabel player1Label;
     private JLabel player2Label;
-
+    private static int[] source;
     public GameScene() throws IOException {
         this.setLayout(new BorderLayout());
         this.setBackground(Color.BLACK);
-
+        source = new int[2];
 
         JPanel gridPanel = new JPanel(new GridLayout(3, 3)); // פריסה בצורת טבלה
         Font myFont = new Font("Ink Free", Font.BOLD, 75);
@@ -58,9 +59,16 @@ public class GameScene extends JPanel {
                 }
             });
 
+
+            source[0] += player1Score;
+            source[1] += player2Score;
+            File file = new File("Source.txt");
+            savePoints(file);
             buttons[i] = newButton;
             gridPanel.add(buttons[i]);
         }
+
+
         JPanel scorePanel = new JPanel(new GridLayout(1, 2));
         player1Label = new JLabel("Player 1 (X): " + player1Score);
         player2Label = new JLabel("Player 2 (O): " + player2Score);
@@ -72,6 +80,12 @@ public class GameScene extends JPanel {
     }
 
 
+    public void savePoints(File file)throws IOException{
+        PrintWriter pw = new PrintWriter(file);
+        pw.println(source[0]);
+        pw.println(source[1]);
+        pw.close();
+    }
     private void updateScore() {
         player1Label.setText("Player 1 (X): " + player1Score);
         player2Label.setText("Player 2 (O): " + player2Score);
@@ -153,7 +167,6 @@ public class GameScene extends JPanel {
         buttons[a].setBackground(Color.GREEN);
         buttons[b].setBackground(Color.GREEN);
         buttons[c].setBackground(Color.GREEN);
-
 
         for (int i = 0; i < 9; i++) {
             buttons[i].setEnabled(false);
