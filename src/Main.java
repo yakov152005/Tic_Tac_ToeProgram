@@ -5,19 +5,23 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 
+
 public class Main extends JFrame {
     private static Audio audioPlayer;
     private static boolean isSoundOn = true;
-
     public static void main(String[] args) throws IOException {
         new Main();
     }
 
     public Main() throws IOException {
+
         this.setSize(Finals.WIDTH, Finals.HEIGHT);
         this.setLayout(new BorderLayout());
         setVisible(true);
         setTitle("Welcome to the Game --->  X||O ");
+        Image icon = new ImageIcon(getClass().getResource("/tic-tac-toe.png")).getImage();
+        setIconImage(icon);
+
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -29,7 +33,6 @@ public class Main extends JFrame {
 
         SplashScreen splashScreen = new SplashScreen();
         this.add(splashScreen, BorderLayout.CENTER);
-
         this.setVisible(true);
     }
 
@@ -44,6 +47,7 @@ public class Main extends JFrame {
             }
         }
     }
+
     public static void check(){
         /*
         JLabel textFiled = new JLabel();
@@ -61,3 +65,4 @@ public class Main extends JFrame {
          */
     }
 }
+
